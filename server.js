@@ -14,7 +14,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const passUserToView = require('./middleware/pass-user-to-view.js');
 const isSignedIn = require('./middleware/is-signed-in');
-
+const User = require('./models/user.js');
 // Controllers
 const authCtrl = require('./controllers/auth');
 
@@ -46,6 +46,7 @@ app.use(passUserToView);
 // ---------- PUBLIC ROUTES ----------
 
 app.get('/', async (req, res) => {
+  const user = User;
   res.render('index.ejs');
 });
 
@@ -53,10 +54,6 @@ app.use('/auth', authCtrl);
 
 // ---------- PROTECTED ROUTES ----------
 app.use(isSignedIn);
-
-app.get('/vip-lounge', async (req, res) => {
-  res.send('VIP PAGE');
-});
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

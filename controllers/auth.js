@@ -5,7 +5,14 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/sign-up', async (req, res, next) => {
+  if (req.session.user)
+  {
+    res.redirect('/');
+  }
+  else
+  {
   res.render('auth/sign-up.ejs');
+  }
 });
 
 router.get('/sign-out', async (req, res) => {
@@ -58,7 +65,11 @@ router.post('/sign-up', async (req, res) => {
 });
 
 router.get('/sign-in', async (req, res) => {
+  if (req.session.user) {
+  res.redirect('/');
+  } else {
   res.render('auth/sign-in.ejs');
+  }
 });
 
 router.post('/sign-in', async (req, res) => {
