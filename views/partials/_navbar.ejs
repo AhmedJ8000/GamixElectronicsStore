@@ -1,12 +1,15 @@
 <link rel="stylesheet" href="/css/style.css">
 <nav>
-  <% if (user) { %>
-  <a href="/">Home</a>
-  <a href="/auth/sign-out">Sign Out</a>
-  <% } else { %>
-  <a href="/auth/sign-up">Sign Up</a>
-  <a href="/auth/sign-in">Sign In</a>
+<% if (user) { %>
+<a href="/auth/sign-out">Sign Out</a>
+<% } else { %>
+<a href="/auth/sign-up" >Sign Up</a>
+<a href="/auth/sign-in">Sign In</a>
   <% } %>
+</nav>
+
+<nav id="navbarBox">
+  <a href="#">Home</a>
   <a href="#">All Products</a>
   <a href="#">About</a>
 </nav>
