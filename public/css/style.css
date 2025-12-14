@@ -125,3 +125,12 @@ img {vertical-align: middle;}
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 }
+
+.shadedBorder{
+background-color: rgba(0, 0, 0, 0.796);
+border-radius: 10px;
+}
+
+h1{
+padding-left:15px;
+}
