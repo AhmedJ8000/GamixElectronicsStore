@@ -17,9 +17,14 @@ body{
   color: rgb(255, 0, 0);
   font-weight: bold;
 }
+nav{
+  text-align: right;
+}
 
 nav a{
   color:red;
+  font-weight: bold;
+  font-family: Arial;
   text-decoration: none;
 }
 
