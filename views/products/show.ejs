@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Product Details</title>
+</head>
+<body>
+<div class="shadedBorder">
+  <img src="/images/Web_Logo.png" width="20%">
+</div>
+  <%- include('../partials/_navbar.ejs') %>
+<div class="shadedBorder">
+<h1>Product Details</h1>
+<div id="productDetailsItem">
+    <div class="product-image">
+      <img src="<%= foundProduct.imageUrl %>" alt="<%= foundProduct.name %>">
+</div>
+
+<div class="product-info">
+<h2>Product Name: <%= foundProduct.name %></h2>
+<p>Description: <%= foundProduct.description %></p>
+<p>Brand: <%= foundProduct.brand %></p>
+<p>Price: <%= foundProduct.price %> BHD</p>
+<p>Category: <%= foundProduct.category %></p>
+<h1>Product Specs:</h1>
+<p><%=foundProduct.specs.cpu %></p>
+</div>
+
+</div>
+</body>
+</html>

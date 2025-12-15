@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Home</title>
+  <script defer src="/js/sliders.js"></script>
+</head>
+<body>
+<div class="shadedBorder">
+<h1>New Product</h1>
+<form action="/products" method="POST">
+    <label for="name">Name:</label>
+    <input required name="name" id="name" type="text">
+    <br>
+    <br>
+    <label for="brand">Brand:</label>
+    <input required name="brand" id="brand" type="text">
+    <br>
+    <br>
+    <label for="price">Price:</label>
+    <input required name="price" id="price" type="number">
+    <br>
+    <br>
+    <label for="category">Category:</label>
+    <input required name="category" id="category" type="text">
+    <br>
+    <br>
+    <label for="description">Description:</label>
+    <input name="description" id="description" type="text">
+    <br>
+    <br>
+    <label for="imageUrl">ImageURL:</label>
+    <input name="imageUrl" id="imageUrl" type="url">
+
+    <button type="submit">Create Product</button>
+</form>
+</div>
+</body>
+</html>
+
+

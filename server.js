@@ -17,6 +17,7 @@ const isSignedIn = require('./middleware/is-signed-in');
 const User = require('./models/user.js');
 // Controllers
 const authCtrl = require('./controllers/auth');
+const Product = require('./models/product.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -45,9 +46,29 @@ app.use(passUserToView);
 
 // ---------- PUBLIC ROUTES ----------
 
+
+app.get('/products/new',(req,res)=>{
+    res.render('products/new.ejs')
+})
+
 app.get('/', async (req, res) => {
-  const user = User;
-  res.render('index.ejs');
+  const user = await User;
+  const products = await Product.find();
+  res.render('index.ejs', {products});
+});
+
+app.get('/products/:id', async (req, res) => {
+    console.log(req.params.id);
+    const {id} = req.params;
+    const foundProduct = await Product.findById(id);
+    res.render('products/show.ejs', {foundProduct});
+})
+
+
+app.post('/products', async (req, res) => {
+req.body.createdAt = new Date(); //Automatically creating the date
+const createdProduct = await Product.create(req.body);
+res.redirect('/');
 });
 
 app.use('/auth', authCtrl);
