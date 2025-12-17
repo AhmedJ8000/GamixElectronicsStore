@@ -61,6 +61,12 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/home', async (req, res) => {
+  const Product = require('./models/product');
+  const products = await Product.find();
+  res.render('index', { products });
+});
+
 //Auth routes
 app.use('/auth', authCtrl);
 
