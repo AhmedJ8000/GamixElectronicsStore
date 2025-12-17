@@ -4,40 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/style.css">
-  <title>Home</title>
-  <script defer src="/js/sliders.js"></script>
+  <title>New Product</title>
 </head>
 <body>
-<div class="shadedBorder">
-<h1>New Product</h1>
-<form action="/products" method="POST">
-    <label for="name">Name:</label>
-    <input required name="name" id="name" type="text">
-    <br>
-    <br>
-    <label for="brand">Brand:</label>
-    <input required name="brand" id="brand" type="text">
-    <br>
-    <br>
-    <label for="price">Price:</label>
-    <input required name="price" id="price" type="number">
-    <br>
-    <br>
-    <label for="category">Category:</label>
-    <input required name="category" id="category" type="text">
-    <br>
-    <br>
-    <label for="description">Description:</label>
-    <input name="description" id="description" type="text">
-    <br>
-    <br>
-    <label for="imageUrl">ImageURL:</label>
-    <input name="imageUrl" id="imageUrl" type="url">
 
-    <button type="submit">Create Product</button>
-</form>
+<div class="shadedBorder edit-container">
+  <form action="/" method="get" style="margin-bottom: 20px;">
+    <button type="submit">← Back</button>
+  </form>
+  <h1>New Product</h1>
+
+  <form action="/products" method="POST" class="edit-form">
+
+    <div class="edit-layout">
+
+      <!-- Right: Form Fields -->
+      <div class="edit-fields">
+
+        <!-- Basic Info -->
+        <label for="name">Name:</label>
+        <input required name="name" id="name" type="text">
+
+        <label for="brand">Brand:</label>
+        <input required name="brand" id="brand" type="text">
+
+        <label for="price">Price (BHD):</label>
+        <input required name="price" id="price" type="number" min="0">
+
+        <label for="category">Category:</label>
+        <input required name="category" id="category" type="text">
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" rows="4" placeholder="Enter product description"></textarea>
+
+        <label for="imageUrl">Image URL:</label>
+        <input name="imageUrl" id="imageUrl" type="url">
+
+        <!-- Specifications -->
+        <h3>Specifications</h3>
+
+        <label for="cpu">CPU:</label>
+        <input name="specs.cpu" id="cpu" type="text">
+
+        <label for="ram">RAM:</label>
+        <input name="specs.ram" id="ram" type="text">
+
+        <label for="storage">Storage:</label>
+        <input name="specs.storage" id="storage" type="text">
+
+        <label for="gpu">GPU:</label>
+        <input name="specs.gpu" id="gpu" type="text">
+
+        <button type="submit">Create Product</button>
+
+      </div>
+
+    </div>
+    
+  </form>
 </div>
+
 </body>
 </html>
-
-

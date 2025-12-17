@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Edit Product: <%= foundProduct.name %></title>
+</head>
+<body>
+
+<div class="shadedBorder">
+  <img src="/images/Web_Logo.png" width="20%">
+</div>
+
+<%- include('../partials/_navbar.ejs') %>
+
+<div class="shadedBorder edit-container">
+  <form action="/products/<%=foundProduct._id%>" method="get" style="margin-bottom: 20px;">
+    <button type="submit">← Back</button>
+  </form>
+
+  <h1>Edit Product</h1>
+
+  <form action="/products/<%= foundProduct._id %>?_method=PUT" method="POST" class="edit-form">
+
+    <div class="edit-layout">
+
+      <!-- IMAGE PREVIEW -->
+      <div class="edit-image">
+        <img src="<%= foundProduct.imageUrl %>" alt="<%= foundProduct.name %>">
+      </div>
+
+      <!-- FORM FIELDS -->
+      <div class="edit-fields">
+
+        <label>Name</label>
+        <input type="text" name="name" value="<%= foundProduct.name %>" required>
+
+        <label>Brand</label>
+        <input type="text" name="brand" value="<%= foundProduct.brand %>" required>
+
+        <label>Price</label>
+        <input type="number" name="price" min="0" value="<%= foundProduct.price %>" required>
+
+        <label>Category</label>
+        <input type="text" name="category" value="<%= foundProduct.category %>" required>
+
+        <label>Description</label>
+        <textarea name="description" rows="4"><%= foundProduct.description %></textarea>
+
+        <label>Image URL</label>
+        <input type="url" name="imageUrl" value="<%= foundProduct.imageUrl %>">
+
+        <h3>Specifications</h3>
+
+        <label>CPU</label>
+        <input type="text" name="specs.cpu" value="<%= foundProduct.specs?.cpu || '' %>">
+
+        <label>RAM</label>
+        <input type="text" name="specs.ram" value="<%= foundProduct.specs?.ram || '' %>">
+
+        <label>Storage</label>
+        <input type="text" name="specs.storage" value="<%= foundProduct.specs?.storage || '' %>">
+
+        <label>GPU</label>
+        <input type="text" name="specs.gpu" value="<%= foundProduct.specs?.gpu || '' %>">
+
+        <button type="submit">Update Product</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+</body>
+</html>

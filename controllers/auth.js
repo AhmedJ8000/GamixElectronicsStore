@@ -4,15 +4,9 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/user');
 
-router.get('/sign-up', async (req, res, next) => {
-  if (req.session.user)
-  {
-    res.redirect('/');
-  }
-  else
-  {
-  res.render('auth/sign-up.ejs');
-  }
+router.get('/sign-up', (req, res) => {
+  if (req.session.user) return res.redirect('/');
+  res.render('auth/sign-up', { error: null });
 });
 
 router.get('/sign-out', async (req, res) => {
@@ -29,80 +23,79 @@ router.get('/sign-out', async (req, res) => {
 router.post('/sign-up', async (req, res) => {
   try {
     const { username, password, confirmPassword } = req.body;
-    // make sure the user does not exist
-    const userInDatabase = await User.findOne({ username });
 
-    if (userInDatabase) {
-      return res.send('Username or Password is invalid');
+    const userExists = await User.findOne({ username });
+    if (userExists) {
+      return res.render('auth/sign-up', {
+        error: 'Username already exists'
+      });
     }
-    // validate the passwords match
+
     if (password !== confirmPassword) {
-      return res.send('Username or Password is invalid');
+      return res.render('auth/sign-up', {
+        error: 'Passwords do not match'
+      });
     }
-    // take the password and encrypt in some way.
-    const hashPassword = bcrypt.hashSync(password, 10);
 
-    // If the above passes, then let's create the account
-    // with the encrypted password.
-    req.body.password = hashPassword;
-    delete req.body.confirmPassword;
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const user = await User.create(req.body);
-    // when that succeeds let's go ahead and "sign the person in"
-    // rediret them to some page
+    const user = await User.create({
+      username,
+      password: hashedPassword
+    });
+
     req.session.user = {
       username: user.username,
-      _id: user._id,
+      _id: user._id
     };
 
-    req.session.save(() => {
-      res.redirect('/');
+    req.session.save(() => res.redirect('/'));
+  } catch (err) {
+    res.render('auth/sign-up', {
+      error: 'Something went wrong. Please try again.'
     });
-  } catch (error) {
-    console.error(error);
-    res.send('Something went wrong with registration!');
   }
 });
 
-router.get('/sign-in', async (req, res) => {
-  if (req.session.user) {
-  res.redirect('/');
-  } else {
-  res.render('auth/sign-in.ejs');
-  }
+router.get('/sign-in', (req, res) => {
+  if (req.session.user) return res.redirect('/');
+  res.render('auth/sign-in', { error: null });
 });
 
 router.post('/sign-in', async (req, res) => {
   try {
-    // try to find the user inthe db
     const { username, password } = req.body;
-    // make sure the user does not exist
+
     const userInDatabase = await User.findOne({ username });
 
-    // if the user does not exist, redirect to sign up with msg
     if (!userInDatabase) {
-      return res.send('Username or Password is invalid');
+      return res.render('auth/sign-in', {
+        error: 'Invalid username or password'
+      });
     }
-    // i the user exists, lets compare the pw with the usr pw
 
-    const isValidPassword = bcrypt.compareSync(password, userInDatabase.password);
-    // if the pw doesnt match, throw an error
+    const isValidPassword = bcrypt.compareSync(
+      password,
+      userInDatabase.password
+    );
+
     if (!isValidPassword) {
-      return res.send('Username or Password is invalid');
+      return res.render('auth/sign-in', {
+        error: 'Invalid username or password'
+      });
     }
 
-    // else continue with the "login"
     req.session.user = {
       username: userInDatabase.username,
       _id: userInDatabase._id,
     };
 
-    req.session.save(() => {
-      res.redirect('/');
-    });
+    req.session.save(() => res.redirect('/'));
   } catch (error) {
     console.error(error);
-    res.send('Something went wrong with Sign In');
+    res.render('auth/sign-in', {
+      error: 'Something went wrong. Please try again.'
+    });
   }
 });
 

@@ -15,7 +15,13 @@ const productSchema = mongoose.Schema({
   description: String,
   imageUrl: String,
   createdAt: Date,
-  specs:[specsSchema]
+  specs: specsSchema,
+  
+  owner: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+  required: true
+}
 });
 // then we register the model with mongoose
 const Product = mongoose.model('Product', productSchema);

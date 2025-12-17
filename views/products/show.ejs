@@ -1,33 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/style.css">
-  <title>Product Details</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>
+    <%= foundProduct.name %>
+  </title>
 </head>
+
 <body>
-<div class="shadedBorder">
-  <img src="/images/Web_Logo.png" width="20%">
-</div>
+
+  <!-- Logo -->
+  <div class="shadedBorder">
+    <img src="/images/Web_Logo.png" width="20%" />
+  </div>
+
+  <!-- Navbar -->
   <%- include('../partials/_navbar.ejs') %>
-<div class="shadedBorder">
-<h1>Product Details</h1>
-<div id="productDetailsItem">
-    <div class="product-image">
-      <img src="<%= foundProduct.imageUrl %>" alt="<%= foundProduct.name %>">
-</div>
 
-<div class="product-info">
-<h2>Product Name: <%= foundProduct.name %></h2>
-<p>Description: <%= foundProduct.description %></p>
-<p>Brand: <%= foundProduct.brand %></p>
-<p>Price: <%= foundProduct.price %> BHD</p>
-<p>Category: <%= foundProduct.category %></p>
-<h1>Product Specs:</h1>
-<p><%=foundProduct.specs.cpu %></p>
-</div>
+    <!-- Main Container -->
+    <div class="shadedBorder product-show-container">
+    <form action="/" method="get" style="margin-bottom: 20px;">
+    <button type="submit">← Back</button>
+    </form>
+      <!-- Header -->
+      <h1 class="page-title">
+        <%= foundProduct.name %>
+      </h1>
 
-</div>
+      <!-- Action Buttons -->
+      <div class="product-actions">
+        <form action="/products/<%= foundProduct._id %>/edit">
+          <button type="submit">Edit</button>
+        </form>
+
+        <form action="/products/<%= foundProduct._id %>?_method=DELETE" method="POST">
+          <button type="submit" class="danger">Delete</button>
+        </form>
+      </div>
+
+      <!-- Product Layout -->
+      <div class="product-show-layout">
+
+        <!-- Image -->
+        <div class="product-show-image">
+          <img src="<%= foundProduct.imageUrl %>" alt="<%= foundProduct.name %>" />
+        </div>
+
+        <!-- Info -->
+        <div class="product-show-info">
+          <div class="product-description">
+            <h3>Description</h3>
+            <p>
+              <%= foundProduct.description || 'No description available.' %>
+            </p>
+          </div>
+
+          <p><strong>Brand:</strong>
+            <%= foundProduct.brand %>
+          </p>
+          <p><strong>Category:</strong>
+            <%= foundProduct.category %>
+          </p>
+          <p class="price"><strong>Price:</strong>
+            <%= foundProduct.price %> BHD
+          </p>
+
+          <!-- Specs -->
+          <h2 id="specsHeader">Specifications</h2>
+
+          <% const specs=foundProduct.specs; const hasSpecs=specs && (specs.cpu || specs.ram || specs.storage ||
+            specs.gpu); %>
+
+            <% if (!hasSpecs) { %>
+              <p class="no-specs">No specifications provided.</p>
+              <% } else { %>
+                <ul class="specs-list">
+                  <% if (specs.cpu) { %>
+                    <li><strong>CPU:</strong>
+                      <%= specs.cpu %>
+                    </li>
+                    <% } %>
+                      <% if (specs.ram) { %>
+                        <li><strong>RAM:</strong>
+                          <%= specs.ram %>
+                        </li>
+                        <% } %>
+                          <% if (specs.storage) { %>
+                            <li><strong>Storage:</strong>
+                              <%= specs.storage %>
+                            </li>
+                            <% } %>
+                              <% if (specs.gpu) { %>
+                                <li><strong>GPU:</strong>
+                                  <%= specs.gpu %>
+                                </li>
+                                <% } %>
+                </ul>
+                <% } %>
+
+        </div>
+      </div>
+    </div>
+
 </body>
+
 </html>

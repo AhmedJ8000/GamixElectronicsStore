@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Sign In</title>
-  </head>
-  <body>
-    <h1>Log in</h1>
-    <form action="/auth/sign-in" method="POST">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<form action="/" method="get">
+<button type="submit">← Back</button>
+</form>
+<div class="auth-container">
+  <h1>Log In</h1>
 
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" />
+  <% if (error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
 
-      <button type="submit">Sign in</button>
-    </form>
-  </body>
+  <form action="/auth/sign-in" method="POST" class="auth-form">
+    <label>Username</label>
+    <input type="text" name="username" required />
+
+    <label>Password</label>
+    <input type="password" name="password" required />
+
+    <button type="submit">Sign In</button>
+  </form>
+</div>
+
+</body>
 </html>
