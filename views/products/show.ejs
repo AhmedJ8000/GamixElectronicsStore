@@ -32,13 +32,17 @@
 
       <!-- Action Buttons -->
       <div class="product-actions">
+        <% if (user) { %>
         <form action="/products/<%= foundProduct._id %>/edit">
           <button type="submit">Edit</button>
         </form>
+        <% } %>
 
+        <% if (user) { %>
         <form action="/products/<%= foundProduct._id %>?_method=DELETE" method="POST">
           <button type="submit" class="danger">Delete</button>
         </form>
+        <% } %>
       </div>
 
       <!-- Product Layout -->
