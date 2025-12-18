@@ -42,17 +42,7 @@ The application features session-based authentication, enabling users to **sign 
 
 ## Getting Started
 
-### Installation Locally
-1. Clone this repository:  
-   ```bash
-   git clone https://github.com/AhmedJ8000/gamix-electronics.git
-   ```
-   ```bash
-   cd gamix-electronics
-   ```
-   ```bash
-   npm install
-   ```
+You can access the deployed app here: [Gamix Electronics Store Live](https://gamixelectronicsstore.onrender.com/)
 
 ## Technology Used
 

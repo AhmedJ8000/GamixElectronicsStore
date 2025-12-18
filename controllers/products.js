@@ -3,6 +3,12 @@ const router = express.Router();
 const Product = require('../models/product');
 const isSignedIn = require('../middleware/is-signed-in');
 
+// ABOUT PAGE
+
+router.get('/about', (req, res) => {
+  res.render('products/about');
+});
+
 // NEW
 router.get('/new', isSignedIn, (req, res) => {
   res.render('products/new');
@@ -50,5 +56,6 @@ router.delete('/:id', isSignedIn, async (req, res) => {
   await product.deleteOne();
   res.redirect('/');
 });
+
 
 module.exports = router;
