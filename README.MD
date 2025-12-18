@@ -27,17 +27,67 @@ The application features session-based authentication, enabling users to **sign 
 ## Screenshots
 
 ### Home Page
-![Home Page Screenshot](./public/images/home-screenshot.png)
+![Home Page Screenshot](./public/images/gamixElectronics_Homepage.jpeg)
 
-### Product Details
-![Product Details Screenshot](./public/images/product-details-screenshot.png)
+### Product Details Page
+![Product Details Screenshot](./public/images/gamixElectronics_DetailsPage.jpeg)
 
-### Add / Edit Product
-![Edit Product Screenshot](./public/images/edit-product-screenshot.png)
+### Add Product Page
+![Edit Product Screenshot](./public/images/gamixElectronics_NewProductPage.jpeg)
+
+### Edit Product Page
+![Edit Product Screenshot](./public/images/gamixElectronics_Editpage.jpeg)
 
 ---
 
 ## Getting Started
 
-### Deployed App
-You can access the deployed app here: [Gamix Electronics Live](https://your-deployed-app-url.com)
+### Installation Locally
+1. Clone this repository:  
+   ```bash
+   git clone https://github.com/AhmedJ8000/gamix-electronics.git
+   ```
+   ```bash
+   cd gamix-electronics
+   ```
+   ```bash
+   npm install
+   ```
+
+## Technology Used
+
+- JavaScript – core language
+
+- Node.js – server-side runtime
+
+- .js – backend framework
+
+- MongoDB – database
+
+- Mongoose – MongoDB ORM
+
+- EJS – templating engine
+
+- Express-session & connect-mongo – session management
+
+- CSS Grid & Flexbox – layout and responsive design
+
+## Future Improvements / Stretch Goals
+
+- Implement product search and filtering
+
+- Allow multiple images per product
+
+- Add user profile pages
+
+- Improve UI with more animations and hover effects
+
+- Implement ratings and reviews for products
+
+- Deploy with HTTPS and domain name
+
+## Author
+
+[Ahmed](https://github.com/AhmedJ8000/)
+
+This project is my MEN Stack CRUD App, fulfilling technical, UI/UX, and GitHub requirements.
