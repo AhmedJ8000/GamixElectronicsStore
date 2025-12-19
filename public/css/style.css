@@ -638,3 +638,10 @@ button.danger::after {
 #add-button {
 padding-left:10px;
 }
+
+/* ===== ACCESS DENIED PAGE ===== */
+
+/* Centering the button */
+#errorBtn{
+margin-left: 75px;
+}

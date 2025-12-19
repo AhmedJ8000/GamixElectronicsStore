@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/product');
 const isSignedIn = require('../middleware/is-signed-in');
+const isOwner = require('../middleware/isOwner');
 
 // ABOUT PAGE
-
 router.get('/about', (req, res) => {
   res.render('products/about');
 });
@@ -16,44 +16,44 @@ router.get('/new', isSignedIn, (req, res) => {
 
 // CREATE
 router.post('/', isSignedIn, async (req, res) => {
-  req.body.owner = req.session.user._id;
-  req.body.createdAt = new Date();
-  await Product.create(req.body);
-  res.redirect('/');
+  try {
+    req.body.owner = req.session.user._id;
+    req.body.createdAt = new Date();
+    await Product.create(req.body);
+    res.redirect('/');
+  } catch (err) {
+    res.send('Error creating product');
+  }
 });
 
 // SHOW
 router.get('/:id', async (req, res) => {
-  const foundProduct = await Product.findById(req.params.id);
-  res.render('products/show', { foundProduct });
+  try {
+    const foundProduct = await Product
+      .findById(req.params.id)
+      .populate('owner', 'username');
+
+    res.render('products/show', { foundProduct });
+  } catch (err) {
+    res.redirect('/');
+  }
 });
 
 // EDIT
-router.get('/:id/edit', isSignedIn, async (req, res) => {
-  const product = await Product.findById(req.params.id);
-  if (!product.owner.equals(req.session.user._id)) {
-    return res.redirect('/');
-  }
-  res.render('products/edit', { foundProduct: product });
+router.get('/:id/edit', isSignedIn, isOwner, async (req, res) => {
+  const foundProduct = await Product.findById(req.params.id);
+  res.render('products/edit', { foundProduct });
 });
 
 // UPDATE
-router.put('/:id', isSignedIn, async (req, res) => {
-  const product = await Product.findById(req.params.id);
-  if (!product.owner.equals(req.session.user._id)) {
-    return res.redirect('/');
-  }
-  await product.updateOne(req.body);
+router.put('/:id', isSignedIn, isOwner, async (req, res) => {
+  await Product.findByIdAndUpdate(req.params.id, req.body);
   res.redirect(`/products/${req.params.id}`);
 });
 
 // DELETE
-router.delete('/:id', isSignedIn, async (req, res) => {
-  const product = await Product.findById(req.params.id);
-  if (!product.owner.equals(req.session.user._id)) {
-    return res.redirect('/');
-  }
-  await product.deleteOne();
+router.delete('/:id', isSignedIn, isOwner, async (req, res) => {
+  await Product.findByIdAndDelete(req.params.id);
   res.redirect('/');
 });
 

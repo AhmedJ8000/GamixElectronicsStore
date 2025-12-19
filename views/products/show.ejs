@@ -22,9 +22,9 @@
 
     <!-- Main Container -->
     <div class="shadedBorder product-show-container">
-    <form action="/" method="get" style="margin-bottom: 20px;">
-    <button type="submit">← Back</button>
-    </form>
+      <form action="/" method="get" style="margin-bottom: 20px;">
+        <button type="submit">← Back</button>
+      </form>
       <!-- Header -->
       <h1 class="page-title">
         <%= foundProduct.name %>
@@ -32,17 +32,16 @@
 
       <!-- Action Buttons -->
       <div class="product-actions">
-        <% if (user) { %>
-        <form action="/products/<%= foundProduct._id %>/edit">
-          <button type="submit">Edit</button>
-        </form>
-        <% } %>
+        <% if (user && foundProduct.owner._id.equals(user._id)) { %>
+          <form action="/products/<%= foundProduct._id %>/edit">
+            <button type="submit">Edit</button>
+          </form>
 
-        <% if (user) { %>
-        <form action="/products/<%= foundProduct._id %>?_method=DELETE" method="POST">
-          <button type="submit" class="danger">Delete</button>
-        </form>
-        <% } %>
+          <form action="/products/<%= foundProduct._id %>?_method=DELETE" method="POST">
+            <button type="submit" class="danger">Delete</button>
+          </form>
+
+          <% } %>
       </div>
 
       <!-- Product Layout -->
@@ -55,6 +54,9 @@
 
         <!-- Info -->
         <div class="product-show-info">
+          <p>Added by: <strong>
+              <%= foundProduct.owner.username %>
+            </strong></p>
           <div class="product-description">
             <h3>Description</h3>
             <p>
