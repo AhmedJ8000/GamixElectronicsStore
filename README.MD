@@ -74,7 +74,7 @@ You can access the deployed app here: [Gamix Electronics Store Live](https://gam
 
 - Implement ratings and reviews for products
 
-- Implement checkout page to allow user to add the product to their cart and proceed to checkout page.
+- Implement checkout page to allow user to add the product to their cart and proceed to checkout page
 
 ## Author
 
